@@ -58,32 +58,32 @@ while getopts "1:2:3:4:5:6:" option; do
 	case ${option} in
 		1 )
 		while read line;do 
-			echo  "$line" | md5sum | awk '{print $1}' | grep $hash_to_crack && echo "Cracked hash: "`tput bold`$line && banner "Finished" && exit 1
+			echo -n "$line" | md5sum | awk '{print $1}' | grep $hash_to_crack && echo "Cracked hash: "`tput bold`$line && banner "Finished" && exit 1
 		done < $input_file
 		;;
 		2 )
 		while read line;do 
-			echo  "$line" | sha1sum | awk '{print $1}' | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && banner "Finished" && exit 1
+			echo -n "$line" | sha1sum | awk '{print $1}' | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && banner "Finished" && exit 1
 		done < $input_file
 		;;
 		3 )
 		while read line;do 
-			echo  "$line" | sha224sum | awk '{print $1}' | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && banner "Finished" && exit 1
+			echo -n "$line" | sha224sum | awk '{print $1}' | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && banner "Finished" && exit 1
 		done < $input_file
 		;;
 		4 )
 		while read line;do 
-			echo  "$line" | sha256sum | awk '{print $1}' | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && banner "Finished" && exit 1
+			echo -n "$line" | sha256sum | awk '{print $1}' | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && banner "Finished" && exit 1
 		done < $input_file
 		;;
 		5 )
 		while read line;do 
-			echo  "$line" | sha384sum | awk '{print $1}' | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && banner "Finished" && exit 1
+			echo -n "$line" | sha384sum | awk '{print $1}' | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && banner "Finished" && exit 1
 		done < $input_file
 		;;
 		6 )
 		while read line;do 
-			echo  "$line" | sha512sum | awk '{print $1}' | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && banner "Finished" && exit 1
+			echo -n "$line" | sha512sum | awk '{print $1}' | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && banner "Finished" && exit 1
 		done < $input_file
 		;;
 		* ) usage

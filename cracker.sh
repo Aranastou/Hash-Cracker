@@ -73,26 +73,36 @@ while getopts "1:2:3:4:5:6:" option; do
 		;;
 		2 )
 		while read line;do 
+			(( counter++ ))
+			echo -ne "Percentage:" $(( ($counter *100 ) / $size))"%" && clean_line
 			echo -n "$line" | sha1sum | cut -d ' ' -f1  | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && banner "Finished" && exit 1
 		done < $input_file
 		;;
 		3 )
 		while read line;do 
+			(( counter++ ))
+			echo -ne "Percentage:" $(( ($counter *100 ) / $size))"%" && clean_line
 			echo -n "$line" | sha224sum | cut -d ' ' -f1  | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && banner "Finished" && exit 1
 		done < $input_file
 		;;
 		4 )
 		while read line;do 
+			(( counter++ ))
+			echo -ne "Percentage:" $(( ($counter *100 ) / $size))"%" && clean_line
 			echo -n "$line" | sha256sum | cut -d ' ' -f1  | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && banner "Finished" && exit 1
 		done < $input_file
 		;;
 		5 )
 		while read line;do 
+			(( counter++ ))
+			echo -ne "Percentage:" $(( ($counter *100 ) / $size))"%" && clean_line
 			echo -n "$line" | sha384sum | cut -d ' ' -f1  | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && banner "Finished" && exit 1
 		done < $input_file
 		;;
 		6 )
 		while read line;do 
+			(( counter++ ))
+			echo -ne "Percentage:" $(( ($counter *100 ) / $size))"%" && clean_line
 			echo -n "$line" | sha512sum | cut -d ' ' -f1  | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && banner "Finished" && exit 1
 		done < $input_file
 		;;

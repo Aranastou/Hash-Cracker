@@ -1,5 +1,8 @@
 #!/bin/bash
 
+
+clean_line() { printf "\r"; }
+
 # define usage function
 usage(){
 	echo "Usage: $0 type file_to_read hash"
@@ -54,36 +57,43 @@ if [ "$#" -ne 3 ] ; then
 	fi
 crackeracki
 banner "Start cracking....Fasten your seatbelts"
+#read -s -N 1 key &
+start=$(date | awk '{print $4}')
+size=$(wc -l $input_file | awk '{print $1}')
+echo "File provided has "$size "lines"
+counter=0
 while getopts "1:2:3:4:5:6:" option; do
 	case ${option} in
 		1 )
-		while read line;do 
-			echo -n "$line" | md5sum | awk '{print $1}' | grep $hash_to_crack && echo "Cracked hash: "`tput bold`$line && banner "Finished" && exit 1
+		while read line;do
+			(( counter++ ))
+			echo -ne "Percentage:" $(( ($counter *100 ) / $size))"%" && clean_line
+			echo -n "$line" | md5sum | cut -d ' ' -f1 | grep $hash_to_crack  && echo "Cracked hash:"`tput bold`$line && echo "Found in $counter line" && banner "Finished" && exit 1
 		done < $input_file
 		;;
 		2 )
 		while read line;do 
-			echo -n "$line" | sha1sum | awk '{print $1}' | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && banner "Finished" && exit 1
+			echo -n "$line" | sha1sum | cut -d ' ' -f1  | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && banner "Finished" && exit 1
 		done < $input_file
 		;;
 		3 )
 		while read line;do 
-			echo -n "$line" | sha224sum | awk '{print $1}' | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && banner "Finished" && exit 1
+			echo -n "$line" | sha224sum | cut -d ' ' -f1  | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && banner "Finished" && exit 1
 		done < $input_file
 		;;
 		4 )
 		while read line;do 
-			echo -n "$line" | sha256sum | awk '{print $1}' | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && banner "Finished" && exit 1
+			echo -n "$line" | sha256sum | cut -d ' ' -f1  | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && banner "Finished" && exit 1
 		done < $input_file
 		;;
 		5 )
 		while read line;do 
-			echo -n "$line" | sha384sum | awk '{print $1}' | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && banner "Finished" && exit 1
+			echo -n "$line" | sha384sum | cut -d ' ' -f1  | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && banner "Finished" && exit 1
 		done < $input_file
 		;;
 		6 )
 		while read line;do 
-			echo -n "$line" | sha512sum | awk '{print $1}' | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && banner "Finished" && exit 1
+			echo -n "$line" | sha512sum | cut -d ' ' -f1  | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && banner "Finished" && exit 1
 		done < $input_file
 		;;
 		* ) usage

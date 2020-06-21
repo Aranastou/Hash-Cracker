@@ -17,8 +17,8 @@ usage(){
 
 	echo ""
 	echo "Exapmples:"
-	echo "Example: ./cracker.sh -1 list 725fda58c5d23e684545878a8fdca9e6"
-	echo "Example: ./cracker.sh -2 list 22e080e638de902b544ea9a7283e258d3fd182a2"
+	echo "Example: ./cracker.sh -1 list 098f6bcd4621d373cade4e832627b4f6"
+	echo "Example: ./cracker.sh -2 list a94a8fe5ccb19ba61c4c0873d391e987982fbbd3"
 }
 
 crackeracki(){
@@ -62,48 +62,50 @@ start=$(date | awk '{print $4}')
 size=$(wc -l $input_file | awk '{print $1}')
 echo "File provided has "$size "lines"
 counter=0
+SECONDS=0
 while getopts "1:2:3:4:5:6:" option; do
 	case ${option} in
 		1 )
 		while read line;do
 			(( counter++ ))
 			echo -ne "Percentage:" $(( ($counter *100 ) / $size))"%" && clean_line
-			echo -n "$line" | md5sum | cut -d ' ' -f1 | grep $hash_to_crack  && echo "Cracked hash:"`tput bold`$line && echo "Found in $counter line" && banner "Finished" && exit 1
+			echo -n "$line" |  md5sum | cut -d ' ' -f1 | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && echo "Found in $counter line" && banner "Finished" && exit 1
+			[ $counter=100 ]
 		done < $input_file
 		;;
 		2 )
 		while read line;do 
 			(( counter++ ))
 			echo -ne "Percentage:" $(( ($counter *100 ) / $size))"%" && clean_line
-			echo -n "$line" | sha1sum | cut -d ' ' -f1  | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && banner "Finished" && exit 1
+			echo -n "$line" | sha1sum | cut -d ' ' -f1  | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && echo "Found in $counter line" && banner "Finished" && exit 1
 		done < $input_file
 		;;
 		3 )
 		while read line;do 
 			(( counter++ ))
 			echo -ne "Percentage:" $(( ($counter *100 ) / $size))"%" && clean_line
-			echo -n "$line" | sha224sum | cut -d ' ' -f1  | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && banner "Finished" && exit 1
+			echo -n "$line" | sha224sum | cut -d ' ' -f1  | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && echo "Found in $counter line" && banner "Finished" && exit 1
 		done < $input_file
 		;;
 		4 )
 		while read line;do 
 			(( counter++ ))
 			echo -ne "Percentage:" $(( ($counter *100 ) / $size))"%" && clean_line
-			echo -n "$line" | sha256sum | cut -d ' ' -f1  | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && banner "Finished" && exit 1
+			echo -n "$line" | sha256sum | cut -d ' ' -f1  | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && echo "Found in $counter line" && banner "Finished" && exit 1
 		done < $input_file
 		;;
 		5 )
 		while read line;do 
 			(( counter++ ))
 			echo -ne "Percentage:" $(( ($counter *100 ) / $size))"%" && clean_line
-			echo -n "$line" | sha384sum | cut -d ' ' -f1  | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && banner "Finished" && exit 1
+			echo -n "$line" | sha384sum | cut -d ' ' -f1  | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && echo "Found in $counter line" && banner "Finished" && exit 1
 		done < $input_file
 		;;
 		6 )
 		while read line;do 
 			(( counter++ ))
 			echo -ne "Percentage:" $(( ($counter *100 ) / $size))"%" && clean_line
-			echo -n "$line" | sha512sum | cut -d ' ' -f1  | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && banner "Finished" && exit 1
+			echo -n "$line" | sha512sum | cut -d ' ' -f1  | grep $hash_to_crack && echo "Cracked hash:"`tput bold`$line && echo "Found in $counter line" && banner "Finished" && exit 1
 		done < $input_file
 		;;
 		* ) usage
